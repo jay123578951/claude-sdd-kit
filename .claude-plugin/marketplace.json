@@ -1,0 +1,21 @@
+{
+  "name": "claude-sdd-kit",
+  "owner": {
+    "name": "jay123578951"
+  },
+  "metadata": {
+    "description": "Spec-Driven Development pipeline skills for Claude Code (Vue/Nuxt 專案)",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "code",
+      "description": "Tier 1/2/3 SDD pipeline — code-feat / code-fix / code-review skills with Spectra integration",
+      "version": "0.1.0",
+      "author": {
+        "name": "jay123578951"
+      },
+      "source": "./plugins/code"
+    }
+  ]
+}
