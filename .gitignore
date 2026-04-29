@@ -1,5 +1,15 @@
+# System
 .DS_Store
+
+# Dependencies
 node_modules/
+
+# Logs
 *.log
+
+# Editor
 .vscode/
 .idea/
+
+# Claude
+.claude/
