@@ -111,7 +111,7 @@ Orchestrator 根據問題描述和相關檔案判斷 Coder 除了必載的 `vue`
 - 善用既有的 composables 和 utils
 - 只修改必要的部分，不做額外重構
 
-完成後執行 ESLint --fix 確保代碼通過 lint。
+完成後跑專案 lint script 確保代碼通過 lint（優先用專案既有 script，如 `pnpm lint --fix`；無對應 script 才 fallback 到 `pnpm exec eslint --fix`。依專案 package manager 調整指令，不要用裸 `npx`）。
 
 輸出：
 1. 修改的檔案路徑與變更摘要
@@ -143,7 +143,7 @@ Orchestrator 根據問題描述和相關檔案判斷 Coder 除了必載的 `vue`
 - TypeScript 型別/介面欄位存在性測試（TypeScript 編譯器已保證型別正確性）
 - 無法 import 實際模組時（如 Nuxt composable），跳過該模組的單元測試，不要複製邏輯自測
 
-完成後執行測試：npx vitest run --reporter=verbose
+完成後執行測試：優先跑專案 test script（如 `pnpm test`，依專案 package manager 調整）；需要逐項失敗資訊時用 `pnpm exec vitest run --reporter=verbose`。不要用裸 `npx`。
 
 輸出：
 1. 建立的測試檔案路徑

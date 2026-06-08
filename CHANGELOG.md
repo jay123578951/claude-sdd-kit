@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.1 — 2026-06-08
+
+lint / test 指令一致化：把 `code-feat`、`code-fix` 既有的 Coder / Tester 指令從硬寫 `npx` 改為偵測專案 package manager 與 scripts，與 `code-comment` 收尾步驟的做法統一。
+
+### Changed
+
+- `code-feat`、`code-fix` 的 Coder prompt 不再寫死 `npx eslint --fix`，Tester prompt 不再寫死 `npx vitest run`；改為「優先專案 script（如 `pnpm lint --fix`、`pnpm test`）→ 無對應 script 才 fallback 到 `pnpm exec` → 避免裸 `npx`」。
+- `ai-development-pipeline.md` 的「ESLint 三層防線」新增「指令執行慣例（lint / test 共用）」小節作為單一規範來源；Coder Agent 職責、Pipeline 圖、註解整理段同步改為「專案 lint script」。
+- README Agent 編排段的註解整理安全網描述同步。
+- 概念性提及 ESLint（git hook、CI、三層防線命名）維持不變——antfu 技術棧的 linter 本來就是 ESLint，本次只統一「怎麼呼叫」。
+
 ## 0.5.0 — 2026-06-08
 
 新增 `code-comment` 註解整理 skill，並掛進 Tier 2 / Tier 3 Pipeline 的開發收尾。解決 AI 開發過程中不斷疊加註解、把思考流程寫進註解、註解過時沒跟上 code 的問題——收尾時以 fresh-eyes subagent 清除壞註解，只留說明「為什麼」與功能型指令的有效註解。
