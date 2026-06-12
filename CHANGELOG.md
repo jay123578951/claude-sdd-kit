@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.6.0 — 2026-06-12
+
+解除對 Spectra 的工具耦合，改為由 OpenSpec 變更 artifact 驅動。原本 skill 會直接呼叫 `spectra` CLI 並提示 `spectra:*` 指令，導致必須額外安裝 Spectra；實際上 pipeline 依賴的只是 `openspec/` 目錄與 artifact 格式（Spectra 底層就是 OpenSpec）。本次把前端工具綁定拿掉，讓 plugin 更單純、少裝一層。
+
+### Changed
+
+- `code-feat` Step 1/2 改為工具無關：不再執行 `spectra list --json` / `spectra status --json`，改為讀取 `openspec/changes/` 目錄與確認 `tasks.md` 存在；下一步提示由 `/spectra:verify`、`/spectra:archive` 改為 `/opsx:verify` → `/opsx:sync` → `/opsx:archive`。
+- `code-fix`、`code-review` 的描述性 `Spectra artifacts` 字眼一律改為中性的「變更 artifact」或「OpenSpec 變更 artifact」。
+- `ai-development-pipeline.md` 工具依賴表、Phase 1/4 流程、Skill 架構表改以 OpenSpec 指令（explore、propose、apply、verify、sync、archive）描述；Phase 4 因 OpenSpec 的 sync 與 archive 為獨立步驟，補回 `/opsx:sync`。
+- README 前置依賴表 `Spectra CLI（必裝）` 改為 `OpenSpec（建議）`，最小範例與交付步驟改用 `/opsx:*` 指令。
+- `plugin.json`、`marketplace.json` 的 description 從「with Spectra integration」改為「driven by OpenSpec change artifacts」。
+
+### Removed
+
+- 刪除文件中 OpenSpec 無對應的 Spectra 專屬步驟：Phase 1.5（analyze / clarify）與「跨階段 Spectra Skills」（debug / tdd），以及 `ingest` 提示。
+
+### Notes
+
+- 「工具無關」僅限 OpenSpec 相容的前端工具（OpenSpec CLI、Spectra、手刻）；skill 仍依賴 OpenSpec 的目錄與檔名約定（`openspec/changes/<name>/` + `proposal.md` / `design.md` / `tasks.md` / `specs/`），故 spec-kit 等不同 artifact 契約的工具無法直接相容。
+- 「實驗記錄」與既有版本的 changelog 屬歷史敘述，保留當時的 `spectra` 用詞不動。
+
 ## 0.5.2 — 2026-06-08
 
 `code-comment` 冗餘判準強化：把核心判準的評估視角明確定為「功能完成後、不知道開發過程的讀者」，並讓「冗餘」涵蓋語意複述而非僅字面直譯——解決「作用已由語意化 class／handler 名稱表達、卻仍寫一條標籤式註解」這類抓不掉的狀況。以強化單一大原則達成，不新增 case 規則。

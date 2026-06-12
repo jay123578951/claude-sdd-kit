@@ -1,7 +1,7 @@
 {
   "name": "code",
-  "version": "0.5.2",
-  "description": "Tier 1/2/3 SDD pipeline — code-feat / code-fix / code-review / code-comment skills with Spectra integration",
+  "version": "0.6.0",
+  "description": "Tier 1/2/3 SDD pipeline — code-feat / code-fix / code-review / code-comment skills driven by OpenSpec change artifacts",
   "author": {
     "name": "jay123578951"
   }

@@ -25,7 +25,7 @@ description: Use when reviewing code changes for quality, security, and project 
 /code:review                     → 自動偵測：git diff 未 commit 的變更
 /code:review --staged            → 只看 staged changes
 /code:review --branch feat/xxx   → 整個 branch 相對 main 的 diff
-/code:review --change xxx        → 讀取 Spectra change artifacts 作為 review 基準
+/code:review --change xxx        → 讀取 OpenSpec 變更 artifact 作為 review 基準
 ```
 
 被 `code-feat` 的 Reviewer 載入時，由呼叫方 prompt 指定範圍，不需自動偵測。
@@ -60,7 +60,7 @@ description: Use when reviewing code changes for quality, security, and project 
 
 Subagent 自行讀檔、自行整合 findings、直接輸出本 skill 定義的「輸出格式」最終報告。主對話收到後直接呈現，不需要再做重新包裝或補充檢查（這些責任已在 prompt 中明確交給 subagent）。
 
-被 `code-feat` Reviewer 載入時，由呼叫方 orchestrator 直接派發 Opus subagent，並把 Coder/Tester 產出摘要、Spectra 變更名稱注入 prompt。
+被 `code-feat` Reviewer 載入時，由呼叫方 orchestrator 直接派發 Opus subagent，並把 Coder/Tester 產出摘要、變更名稱注入 prompt。
 
 **Context budget 守則**（派發前 orchestrator 必算）：
 
@@ -266,7 +266,7 @@ Grounding rules：
 開始工作前：
 
 1. 讀取上方列出的修復檔案——只讀改動行數及其前後必要的 context（不需讀完整檔）
-2. **不要**重新掃描其他檔案、不要讀取 Spectra artifacts 或 design.md
+2. **不要**重新掃描其他檔案、不要讀取變更 artifact 或 design.md
 3. **不要**對未被修復的部分做 review；不要找新的 finding 來「補強」報告
 
 逐項驗證每個原始 WARNING：
