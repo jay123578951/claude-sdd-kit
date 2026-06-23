@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.7.1 — 2026-06-23
+
+強化 `code-feat`、`code-fix` 的 skill description，讓「該用哪一個」的路由判斷隨 plugin 出貨、裝好即可靠運作，不依賴專案 CLAUDE.md 額外設定。Claude Code 安裝 plugin 後會自動以 skill 的 `name + description` 判斷適用情境——原描述只標 Tier 等級，缺鑑別條件與互相指路，AI 需靠語意猜測；本次補上判準，讓自動建議不靠運氣。
+
+### Changed
+
+- `code-feat` description 補上鑑別條件（5+ 檔或跨模組、需設計決策、新增 API/元件）、前提（需已有 OpenSpec change：`openspec/changes/<name>/` 含 `tasks.md`）與指路（小改動改用 `code-fix`）。
+- `code-fix` description 補上鑑別條件（2-5 檔、無需設計決策、不新增 API/元件）與指路（需完整設計流程改用 `code-feat`；單行/純樣式微調直接在對話改）。
+- `commands/feat.md`、`commands/fix.md` 的 frontmatter description 同步更新，與對應 skill 保持一致。
+
+### Notes
+
+- 此為路由可靠度的改善，不動 pipeline 行為（派發、retry、model 升級規則皆不變）。
+- 專案特定慣例（UI 語言、設計系統、CSS 變數）仍由 runtime 從專案 CLAUDE.md 讀取——通用流程出貨於 kit、專案知識留在 CLAUDE.md 為刻意的分層。
+
 ## 0.7.0 — 2026-06-16
 
 新增 `code-guidelines` 行為守則 skill，由 Coder 在動手前載入，針對 LLM 寫 code 的通病（亂假設、過度設計、亂改不該動的地方），從生成端先自我約束。原本這些性質只由 Reviewer 在事後攔截（過度抽象、只改必要），現在從生成端先自我約束——預防比 retry 便宜（少一輪 Opus review + 重跑測試）。skill 分類從「知識型 / 流程型」擴為加上「行為型」第三類。
